@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+const getSatsVal = async () => {
+  const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl')
+  const btcPrice = res.data.bitcoin.brl
+  const fiatInSatoshis = Math.round(1/(btcPrice/1e8));
+
+  return fiatInSatoshis;
+}
 
 //TODO: get value from API
 const satsVal = 500;
@@ -74,26 +83,28 @@ class Converter extends Component {
         <p>1 USD equals</p>
         <p>{satsVal} satoshis</p>
         <table>
-          <tr>
-            <td>
-              <Input
-                currency="f"
-                value={fiat}
-                onValueChange={this.handleSatoshiChange}
-              />
-            </td>
-            <td>USD</td>
-          </tr>
-          <tr>
-            <td>
-              <Input
-                currency="s"
-                value={satoshi}
-                onValueChange={this.handleFiatChange}
-              />
-            </td>
-            <td>satoshis</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <Input
+                  currency="f"
+                  value={fiat}
+                  onValueChange={this.handleSatoshiChange}
+                />
+              </td>
+              <td>USD</td>
+            </tr>
+            <tr>
+              <td>
+                <Input
+                  currency="s"
+                  value={satoshi}
+                  onValueChange={this.handleFiatChange}
+                />
+              </td>
+              <td>satoshis</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     )
