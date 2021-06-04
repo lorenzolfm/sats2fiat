@@ -1,35 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const getSatsVal = async () => {
-  const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl')
-  const btcPrice = res.data.bitcoin.brl
-  const fiatInSatoshis = Math.round(1/(btcPrice/1e8));
-
-  return fiatInSatoshis;
-}
 
 //TODO: get value from API
 const satsVal = 500;
 
-const toSatoshis = (fiat) => {
-  return satsVal * fiat;
-}
 
-const toFiat = (satoshis) => {
-  return satoshis / satsVal;
-}
-
-const tryConvert = (value, convert) => {
-  const input = parseFloat(value);
-  if (Number.isNaN(input)) {
-    return '';
-  }
-
-  const output = convert(input);
-  const rounded = Math.round(output * 1000) / 1000;
-  return rounded.toString();
-}
 
 class Input extends Component {
   constructor(props) {
@@ -58,7 +34,7 @@ class Converter extends Component {
     super(props);
     this.handleFiatChange = this.handleFiatChange.bind(this);
     this.handleSatoshiChange = this.handleSatoshiChange.bind(this);
-    this.state = {value: '', currency: ''};
+    this.state = {value: '', currency: '', conversionRatio: ''};
   }
 
   handleFiatChange(value) {
@@ -69,14 +45,48 @@ class Converter extends Component {
     this.setState({currency: 's', value});
   }
 
+  getSatsVal = async () => {
+    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl')
+    const btcPrice = res.data.bitcoin.brl
+    const fiatInSatoshis = Math.round(1/(btcPrice/1e8));
+
+    return fiatInSatoshis;
+  }
+
+  toSatoshis = (fiat) => {
+    return this.state.conversionRatio * fiat;
+  }
+
+  toFiat = (satoshis) => {
+    return satoshis / this.state.conversionRatio;
+  }
+
+  tryConvert = (value, convert) => {
+    const input = parseFloat(value);
+    if (Number.isNaN(input)) {
+      return '';
+    }
+
+    const output = convert(input);
+    const rounded = Math.round(output * 1000) / 1000;
+    return rounded.toString();
+  }
+
+  componentDidMount () {
+    this.getSatsVal()
+      .then(val => {
+        this.setState({conversionRatio: val});
+      })
+  }
+
   render () {
     const currency = this.state.currency;
     const value = this.state.value;
 
     const fiat = currency === 'f' ?
-      tryConvert(value, toFiat) : value;
+      this.tryConvert(value, this.toFiat) : value;
     const satoshi = currency === 's' ?
-      tryConvert(value, toSatoshis) : value;
+      this.tryConvert(value, this.toSatoshis) : value;
 
     return (
       <div>
