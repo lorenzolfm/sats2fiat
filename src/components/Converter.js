@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-//TODO: get value from API
-const satsVal = 500;
-
-
-
 class Input extends Component {
   constructor(props) {
     super(props);
@@ -82,6 +77,7 @@ class Converter extends Component {
   render () {
     const currency = this.state.currency;
     const value = this.state.value;
+    const conversionRatio = this.state.conversionRatio
 
     const fiat = currency === 'f' ?
       this.tryConvert(value, this.toFiat) : value;
@@ -90,8 +86,8 @@ class Converter extends Component {
 
     return (
       <div>
-        <p>1 USD equals</p>
-        <p>{satsVal} satoshis</p>
+        <p>1 BRL equals</p>
+        <p>{conversionRatio} satoshis</p>
         <table>
           <tbody>
             <tr>
@@ -102,7 +98,7 @@ class Converter extends Component {
                   onValueChange={this.handleSatoshiChange}
                 />
               </td>
-              <td>USD</td>
+              <td>BRL</td>
             </tr>
             <tr>
               <td>
