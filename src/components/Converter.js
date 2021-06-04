@@ -48,13 +48,10 @@ class Input extends Component {
     const currency = this.props.currency
 
     return (
-      <fieldset>
-        <legend>Enter value in {currencyNames[currency]}:</legend>
-        <input
-          value={value}
-          onChange={this.handleChange}
-        />
-      </fieldset>
+      <input
+        value={value}
+        onChange={this.handleChange}
+      />
     )
   }
 }
@@ -86,16 +83,30 @@ class Converter extends Component {
 
     return (
       <div>
-        <Input
-          currency="f"
-          value={fiat}
-          onValueChange={this.handleSatoshiChange}
-        />
-        <Input
-          currency="s"
-          value={satoshi}
-          onValueChange={this.handleFiatChange}
-        />
+        <p>1 USD equals</p>
+        <p>{satsVal} satoshis</p>
+        <table>
+          <tr>
+            <td>
+              <Input
+                currency="f"
+                value={fiat}
+                onValueChange={this.handleSatoshiChange}
+              />
+            </td>
+            <td>USD</td>
+          </tr>
+          <tr>
+            <td>
+              <Input
+                currency="s"
+                value={satoshi}
+                onValueChange={this.handleFiatChange}
+              />
+            </td>
+            <td>satoshis</td>
+          </tr>
+        </table>
         <IsMillionaire
           satoshis={parseFloat(satoshi)} />
       </div>
