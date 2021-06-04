@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 class Converter extends Component {
   render () {
     return (
-      <h2>Hello World</h2>
+      <div>
+        <p>1 USD equals</p>
+        <p>X satoshis</p>
+      </div>
     )
   }
 }
