@@ -3,31 +3,43 @@ import React, { Component } from 'react';
 class Converter extends Component {
   state = {
     conversionRatio: 500,
-    satoshis: 500,
 
-    fiatInput: 1,
-    satoshisInput: 500,
+    fiat: 1,
+    satoshi: 500
   }
 
   handleInput = (event) => {
     if (event.target.id === "fiatInput") {
-      console.log("satoshiInput")
       if (event.target.value !== "") {
         const input = event.target.value;
 
         this.setState({
-          fiatInput: input,
-          satoshis: input*this.state.conversionRatio
+          fiat: input,
+          satoshi: input * this.state.conversionRatio
         })
       } else {
         this.setState({
-          fiatInput: "",
-          satoshis: ""
+          fiat: "",
+          satoshi: ""
         })
       }
     }
 
-    if (event.target.id === "satoshiInput") {}
+    if (event.target.id === "satoshiInput") {
+      if (event.target.value !== "") {
+        const input = event.target.value;
+
+        this.setState({
+          fiat: input / this.state.conversionRatio,
+          satoshi: input
+        })
+      } else {
+        this.setState({
+          fiat: "",
+          satoshi: ""
+        })
+      }
+    }
 
   }
 
@@ -39,7 +51,7 @@ class Converter extends Component {
         <input
           id="fiatInput"
           type="number"
-          value={this.state.fiatInput}
+          value={this.state.fiat}
           onChange={this.handleInput}
         />
         <p>fiat</p>
@@ -47,7 +59,7 @@ class Converter extends Component {
         <input
           id="satoshiInput"
           type="number"
-          value={this.state.satoshis}
+          value={this.state.satoshi}
           onChange={this.handleInput}
         />
       </div>
