@@ -22,10 +22,10 @@ const tryConvert = (value, convert) => {
   return rounded.toString();
 }
 
-const currencyNames = {
-  f: 'fiat',
-  s: 'satoshi'
-}
+//const currencyNames = {
+  //f: 'fiat',
+  //s: 'satoshi'
+//}
 
 class Input extends Component {
   constructor(props) {
@@ -39,7 +39,6 @@ class Input extends Component {
 
   render() {
     const value = this.props.value;
-    const currency = this.props.currency
 
     return (
       <input
