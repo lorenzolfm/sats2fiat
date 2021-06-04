@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
-const IsMillionaire = (props) => {
-  if (props.satoshis >= 10e6) {
-    return <p>Congrats. You're a millionarire</p>
-  }
-  return <p>Stay humble and stack sats!</p>
-}
-
+//TODO: get value from API
 const satsVal = 500;
 
 const toSatoshis = (fiat) => {
@@ -107,8 +101,6 @@ class Converter extends Component {
             <td>satoshis</td>
           </tr>
         </table>
-        <IsMillionaire
-          satoshis={parseFloat(satoshi)} />
       </div>
     )
   }
