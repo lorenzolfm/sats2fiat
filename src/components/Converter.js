@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './Input'
+import CurrencySelector from './CurrencySelector'
 import axios from 'axios';
 
 class Converter extends Component {
@@ -76,7 +77,7 @@ class Converter extends Component {
                   onValueChange={this.handleSatoshiChange}
                 />
               </td>
-              <td>BRL</td>
+              <td><CurrencySelector /></td>
             </tr>
             <tr>
               <td>
