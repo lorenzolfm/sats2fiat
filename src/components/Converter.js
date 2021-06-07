@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Input from './Input'
 import axios from 'axios';
 
-
 class Converter extends Component {
   constructor(props) {
     super(props);
