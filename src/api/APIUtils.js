@@ -21,7 +21,21 @@ const getBTCPriceData = async (currencies) => {
   const url = createURL(currencies);
   const res = await axios.get(url)
 
-  return res.data;
+  return res.data.bitcoin;
 }
 
-export default getBTCPriceData;
+const convertToSats = (btcPrice) => {
+    return Math.round(1/(btcPrice/1e8));
+}
+
+const getPricesInSats = async () => {
+  let data = await getBTCPriceData();
+
+  for (let currency in data) {
+    data[currency] = convertToSats(data[currency]);
+  }
+
+  return data;
+}
+
+export default getPricesInSats;
