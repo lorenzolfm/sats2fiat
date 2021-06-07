@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Input from './Input'
 import CurrencySelector from './CurrencySelector'
 import axios from 'axios';
+import getBTCPriceData from '../api/APIUtils'
 
 class Converter extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class Converter extends Component {
       .then(val => {
         this.setState({conversionRatio: val});
       })
+    getBTCPriceData().then(data => console.log(data));
   }
 
   render () {
