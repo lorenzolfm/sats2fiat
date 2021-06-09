@@ -19,10 +19,6 @@ class CurrencySelector extends Component {
     });
   }
 
-  handleClick = (item) => {
-    console.log(item);
-  }
-
   render() {
     return (
       <div>
