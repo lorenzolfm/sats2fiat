@@ -9,15 +9,15 @@ class Converter extends Component {
     super(props);
     this.handleFiatChange = this.handleFiatChange.bind(this);
     this.handleSatoshiChange = this.handleSatoshiChange.bind(this);
-    this.state = {value: '', currency: '', conversionRatio: '', apiData: {}, availableCurrencies: [], selectedCurrency: ''};
+    this.state = {value: '', currency: '', conversionRatio: '', availableCurrencies: [], selectedCurrency: ''};
     this.apiData = ''
   }
 
-  handleFiatChange(value) {
+  handleFiatChange (value) {
     this.setState({currency: 'f', value});
   }
 
-  handleSatoshiChange(value) {
+  handleSatoshiChange (value) {
     this.setState({currency: 's', value});
   }
 
@@ -91,7 +91,11 @@ class Converter extends Component {
                   onValueChange={this.handleSatoshiChange}
                 />
               </td>
-              <td><CurrencySelector availableCurrencies={this.state.availableCurrencies} setCurrency={this.setCurrency}/></td>
+              <td>
+                <CurrencySelector
+                  availableCurrencies={this.state.availableCurrencies}
+                  setCurrency={this.setCurrency}/>
+              </td>
             </tr>
             <tr>
               <td>
