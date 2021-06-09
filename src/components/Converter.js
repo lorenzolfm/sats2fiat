@@ -9,7 +9,7 @@ class Converter extends Component {
     super(props);
     this.handleFiatChange = this.handleFiatChange.bind(this);
     this.handleSatoshiChange = this.handleSatoshiChange.bind(this);
-    this.state = {value: '', currency: '', conversionRatio: ''};
+    this.state = {value: '', currency: '', conversionRatio: '', availableCurrencies: []};
   }
 
   handleFiatChange(value) {
@@ -41,6 +41,13 @@ class Converter extends Component {
 
   componentDidMount = async () => {
     const data = await getPricesInSats();
+
+    // Adding availableCurrencies
+    for (let currency in data) {
+      const list = [...this.state.availableCurrencies, currency]
+      this.setState({availableCurrencies: list})
+    }
+
     this.setState({conversionRatio: data.brl})
   }
 
@@ -68,7 +75,7 @@ class Converter extends Component {
                   onValueChange={this.handleSatoshiChange}
                 />
               </td>
-              <td><CurrencySelector /></td>
+              <td><CurrencySelector availableCurrencies={this.state.availableCurrencies}/></td>
             </tr>
             <tr>
               <td>
