@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Input from './Input'
-import CurrencySelector from './CurrencySelector'
-import axios from 'axios';
+
 import getPricesInSats from '../api/APIUtils'
+import CurrencySelector from './CurrencySelector'
+import Input from './Input'
 
 class Converter extends Component {
   constructor(props) {
@@ -18,14 +18,6 @@ class Converter extends Component {
 
   handleSatoshiChange(value) {
     this.setState({currency: 's', value});
-  }
-
-  getSatsVal = async () => {
-    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl')
-    const btcPrice = res.data.bitcoin.brl
-    const fiatInSatoshis = Math.round(1/(btcPrice/1e8));
-
-    return fiatInSatoshis;
   }
 
   toSatoshis = (fiat) => {
@@ -47,11 +39,9 @@ class Converter extends Component {
     return rounded.toString();
   }
 
-  componentDidMount () {
-    getPricesInSats()
-      .then(data => {
-        this.setState({conversionRatio: data.brl})
-      })
+  componentDidMount = async () => {
+    const data = await getPricesInSats();
+    this.setState({conversionRatio: data.brl})
   }
 
   render () {
