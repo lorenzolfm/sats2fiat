@@ -53,7 +53,7 @@ class Converter extends Component {
   }
 
   setCurrency = (currency) => {
-    if (currency ==='USD') {
+    if (currency === 'USD') {
       this.setState({conversionRatio: 2000})
     }
   }
