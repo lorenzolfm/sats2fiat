@@ -52,6 +52,12 @@ class Converter extends Component {
     this.setState({conversionRatio: data.brl})
   }
 
+  setCurrency = (currency) => {
+    if (currency ==='USD') {
+      this.setState({conversionRatio: 2000})
+    }
+  }
+
   render () {
     const currency = this.state.currency;
     const value = this.state.value;
@@ -76,7 +82,7 @@ class Converter extends Component {
                   onValueChange={this.handleSatoshiChange}
                 />
               </td>
-              <td><CurrencySelector availableCurrencies={this.state.availableCurrencies}/></td>
+              <td><CurrencySelector availableCurrencies={this.state.availableCurrencies} setCurrency={this.setCurrency}/></td>
             </tr>
             <tr>
               <td>

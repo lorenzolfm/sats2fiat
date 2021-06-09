@@ -19,6 +19,10 @@ class CurrencySelector extends Component {
     });
   }
 
+  handleClick = (item) => {
+    console.log(item);
+  }
+
   render() {
     return (
       <div>
@@ -29,7 +33,7 @@ class CurrencySelector extends Component {
             ? (
               <div className="menu">
                 {this.props.availableCurrencies.map(item => (
-                  <button>{item}</button>
+                  <button key={item} onClick={() => this.props.setCurrency(item)}>{item}</button>
                 ))}
               </div>
             )
