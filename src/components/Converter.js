@@ -9,7 +9,7 @@ class Converter extends Component {
     super(props);
     this.handleFiatChange = this.handleFiatChange.bind(this);
     this.handleSatoshiChange = this.handleSatoshiChange.bind(this);
-    this.state = {value: '', currency: '', conversionRatio: '', apiData: {}, availableCurrencies: []};
+    this.state = {value: '', currency: '', conversionRatio: '', apiData: {}, availableCurrencies: [], selectedCurrency: ''};
   }
 
   handleFiatChange(value) {
@@ -50,25 +50,26 @@ class Converter extends Component {
       this.setState({availableCurrencies: list})
     }
 
-    this.setState({conversionRatio: data.brl})
+    this.setState({conversionRatio: data.brl, selectedCurrency: 'BRL'})
   }
 
   setCurrency = (currency) => {
     if (currency === 'USD') {
-      this.setState({conversionRatio: this.state.apiData.usd})
+      this.setState({conversionRatio: this.state.apiData.usd, selectedCurrency: 'USD'})
     }
     if (currency === 'BRL') {
-      this.setState({conversionRatio: this.state.apiData.brl})
+      this.setState({conversionRatio: this.state.apiData.brl, selectedCurrency: 'BRL'})
     }
     if (currency === 'EUR') {
-      this.setState({conversionRatio: this.state.apiData.eur})
+      this.setState({conversionRatio: this.state.apiData.eur, selectedCurrency: 'EUR'})
     }
   }
 
   render () {
     const currency = this.state.currency;
     const value = this.state.value;
-    const conversionRatio = this.state.conversionRatio
+    const conversionRatio = this.state.conversionRatio;
+    const selectedCurrency = this.state.selectedCurrency;
 
     const fiat = currency === 'f' ?
       this.tryConvert(value, this.toFiat) : value;
@@ -77,7 +78,7 @@ class Converter extends Component {
 
     return (
       <div>
-        <p>1 BRL equals</p>
+        <p>1 {selectedCurrency} equals</p>
         <p>{conversionRatio} satoshis</p>
         <table>
           <tbody>
