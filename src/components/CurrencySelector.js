@@ -28,9 +28,9 @@ class CurrencySelector extends Component {
           this.state.showMenu
             ? (
               <div className="menu">
-                <button>USD</button>
-                <button>BRL</button>
-                <button>EUR</button>
+                {this.props.availableCurrencies.map(item => (
+                  <button>{item}</button>
+                ))}
               </div>
             )
             : (

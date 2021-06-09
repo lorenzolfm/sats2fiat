@@ -44,6 +44,7 @@ class Converter extends Component {
 
     // Adding availableCurrencies
     for (let currency in data) {
+      currency = currency.toUpperCase()
       const list = [...this.state.availableCurrencies, currency]
       this.setState({availableCurrencies: list})
     }
