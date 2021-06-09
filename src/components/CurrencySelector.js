@@ -15,7 +15,7 @@ class CurrencySelector extends Component {
     event.preventDefault();
 
     this.setState({
-      showMenu: true,
+      showMenu: !this.state.showMenu,
     });
   }
 
