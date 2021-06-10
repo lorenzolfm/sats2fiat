@@ -55,16 +55,10 @@ class Converter extends Component {
   }
 
   setCurrency = (currency) => {
-    console.log(currency)
-    if (currency === 'USD') {
-      this.setState({conversionRatio: this.apiData.usd, selectedCurrency: 'USD'})
-    }
-    if (currency === 'BRL') {
-      this.setState({conversionRatio: this.apiData.brl, selectedCurrency: 'BRL'})
-    }
-    if (currency === 'EUR') {
-      this.setState({conversionRatio: this.apiData.eur, selectedCurrency: 'EUR'})
-    }
+    this.setState({
+      conversionRatio: this.apiData[currency.toLowerCase()],
+      selectedCurrency:  currency
+    });
   }
 
   render () {
