@@ -1,43 +1,23 @@
 import React, { Component } from 'react';
 
 class CurrencySelector extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showMenu: false,
-    }
-
-    this.showMenu = this.showMenu.bind(this);
+  constructor (props) {
+    super(props);
+    this.onChangeCurrency = this.onChangeCurrency.bind(this);
   }
 
-  showMenu (event) {
-    event.preventDefault();
-
-    this.setState({
-      showMenu: !this.state.showMenu,
-    });
+  onChangeCurrency (event) {
+    this.props.setCurrency(event.target.value);
   }
 
-  render() {
+  render () {
+    const availableCurrencies = this.props.availableCurrencies;
     return (
-      <div>
-        <button onClick={this.showMenu}>Show Menu</button>
-
-        {
-          this.state.showMenu
-            ? (
-              <div className="menu">
-                {this.props.availableCurrencies.map(item => (
-                  <button key={item} onClick={() => this.props.setCurrency(item)}>{item}</button>
-                ))}
-              </div>
-            )
-            : (
-              null
-            )
-        }
-      </div>
+      <select onChange={this.onChangeCurrency}>
+        {availableCurrencies.map((currency) => {
+          return <option value={currency} key={currency}>{currency}</option>
+        })}
+      </select>
     );
   }
 }

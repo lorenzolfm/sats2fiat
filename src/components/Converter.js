@@ -51,10 +51,11 @@ class Converter extends Component {
       this.setState({availableCurrencies: list})
     }
 
-    this.setState({conversionRatio: data.brl, selectedCurrency: 'BRL'})
+    this.setState({conversionRatio: data.usd, selectedCurrency: 'USD'})
   }
 
   setCurrency = (currency) => {
+    console.log(currency)
     if (currency === 'USD') {
       this.setState({conversionRatio: this.apiData.usd, selectedCurrency: 'USD'})
     }
