@@ -7,7 +7,7 @@ const createURL = (listOfCurrencies) => {
 
   let url = prefix;
 
-  for (let i = 0; i < currencies.length; i++) {
+  for (let i = 0; i < listOfCurrencies.length; i++) {
     url = url + currencies[i];
     if (i !== currencies.length - 1) {
       url = url + '%2C'
@@ -29,7 +29,7 @@ const convertToSats = (btcPrice) => {
 }
 
 const getPricesInSats = async () => {
-  let data = await getBTCPriceData();
+  let data = await getBTCPriceData(currencies);
 
   for (let currency in data) {
     data[currency] = convertToSats(data[currency]);
